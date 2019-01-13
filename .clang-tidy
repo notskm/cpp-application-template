@@ -1,0 +1,5 @@
+---
+Checks: '*,-abseil*,-google*,-fuschia*,-llvm-header-guard'
+WarningsAsErrors: '*'
+FormatStyle: file
+...

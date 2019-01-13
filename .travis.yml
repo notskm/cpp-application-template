@@ -1,0 +1,126 @@
+language: cpp
+
+common_sources: &all_sources
+  - ubuntu-toolchain-r-test
+  - llvm-toolchain-trusty-7
+
+matrix:
+  include:
+    - os: linux
+      dist: xenial
+      compiler: gcc
+      addons:
+        apt:
+          sources: *all_sources
+          packages:
+            - g++-8
+      env:
+        - CXX_EXE='g++-8'
+        - CC_EXE='gcc-8'
+        - BUILD_TYPE='Debug'
+
+    - os: linux
+      dist: xenial
+      compiler: gcc
+      addons:
+        apt:
+          sources: *all_sources
+          packages:
+            - g++-8
+      env:
+        - CXX_EXE='g++-8'
+        - CC_EXE='gcc-8'
+        - BUILD_TYPE='Release'
+
+    - os: linux
+      dist: xenial
+      compiler: clang
+      addons:
+        apt:
+          sources: *all_sources
+          packages:
+            - g++-8
+            - clang-7
+      env:
+        - CXX_EXE='clang++-7'
+        - CC_EXE='clang-7'
+        - BUILD_TYPE='Debug'
+
+    - os: linux
+      dist: xenial
+      compiler: clang
+      addons:
+        apt:
+          sources: *all_sources
+          packages:
+            - g++-8
+            - clang-7
+      env:
+        - CXX_EXE='clang++-7'
+        - CC_EXE='clang-7'
+        - BUILD_TYPE='Release'
+
+    - os: windows
+      before_install:
+        - choco install python3
+        - export PATH="/c/Python37:/c/Python37/Scripts:$PATH"
+        - python -m pip install --upgrade pip wheel
+      env:
+        - CXX_EXE='cl.exe'
+        - CC_EXE='cl.exe'
+        - BUILD_TYPE='Debug' 
+
+    - os: windows
+      before_install:
+        - choco install python3
+        - export PATH="/c/Python37:/c/Python37/Scripts:$PATH"
+        - python -m pip install --upgrade pip wheel
+      env:
+        - CXX_EXE='cl.exe'
+        - CC_EXE='cl.exe'
+        - BUILD_TYPE='Release' 
+
+    - os: osx
+      osx_image: xcode10.1
+      addons:
+        homebrew:
+          update: true
+      env:
+        - CXX_EXE='clang++'
+        - CC_EXE='clang'
+        - BUILD_TYPE='Debug' 
+
+    - os: osx
+      osx_image: xcode10.1
+      addons:
+        homebrew:
+          update: true
+      env:
+        - CXX_EXE='clang++'
+        - CC_EXE='clang'
+        - BUILD_TYPE='Release' 
+
+install:
+  - |
+    if [ "${TRAVIS_OS_NAME}" == "linux" ]
+    then
+      pip install --user conan
+    else
+      pip install conan
+    fi
+
+before_script:
+  - cd ${TRAVIS_BUILD_DIR}
+  - mkdir build
+  - cd ${TRAVIS_BUILD_DIR}/build
+
+script:
+  - which cmake
+  - cmake --version
+
+  - export CXX=${CXX_EXE}
+  - export CC=${CC_EXE}
+
+  - cmake .. -DCMAKE_BUILD_TYPE:STRING="${BUILD_TYPE}" -DBUILD_TESTS=ON
+  - cmake --build . --config ${BUILD_TYPE}
+  - ctest --output-on-failure -C ${BUILD_TYPE}
