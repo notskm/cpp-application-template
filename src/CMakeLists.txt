@@ -71,4 +71,4 @@ set(
 )
 set(CPACK_NSIS_MUI_FINISHPAGE_RUN ${PROJECT_NAME})
 
-include(cpack)
+include(CPack)
