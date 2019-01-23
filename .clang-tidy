@@ -1,5 +1,5 @@
 ---
-Checks: '*,-abseil*,-google*,-fuschia*,-llvm-header-guard'
+Checks: '*,-abseil*,-google*,-fuchsia*,-llvm-header-guard'
 WarningsAsErrors: '*'
 FormatStyle: file
 ...
