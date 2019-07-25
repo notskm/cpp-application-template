@@ -1,4 +1,6 @@
+# --------------
 # Library
+# --------------
 set(LIBRARY_SOURCES)
 
 if (LIBRARY_SOURCES)
@@ -18,7 +20,9 @@ if (LIBRARY_SOURCES)
     target_compile_options(${PROJECT_NAME}_lib PRIVATE ${PROJECT_WARNINGS})
 endif ()
 
+# --------------
 # Unit Tests
+# --------------
 if (BUILD_TESTS)
     set(UNIT_TEST_SOURCES unit_tests.cpp)
 
@@ -52,7 +56,9 @@ if (BUILD_TESTS)
     catch_discover_tests(${PROJECT_NAME}_unit_tests)
 endif ()
 
+# --------------
 # Application
+# --------------
 add_executable(${PROJECT_NAME} main.cpp)
 
 target_link_libraries(
@@ -68,7 +74,9 @@ target_compile_features(
     cxx_std_17
 )
 
+# --------------
 # Install
+# --------------
 install(
     TARGETS ${PROJECT_NAME}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
@@ -86,7 +94,9 @@ install(
     DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/${PROJECT_NAME}
 )
 
+# --------------
 # Package
+# --------------
 set(CPACK_RESOURCE_FILE_LICENSE ${PROJECT_SOURCE_DIR}/LICENSE)
 
 set(CPACK_NSIS_ENABLE_UNINSTALL_BEFORE_INSTALL ON)
