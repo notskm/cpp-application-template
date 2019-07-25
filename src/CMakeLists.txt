@@ -12,7 +12,7 @@ if (LIBRARY_SOURCES)
     target_compile_features(
         ${PROJECT_NAME}_lib
         PUBLIC
-        cxx_std_14
+        cxx_std_17
     )
 
     target_compile_options(${PROJECT_NAME}_lib PRIVATE ${PROJECT_WARNINGS})
@@ -42,6 +42,12 @@ if (BUILD_TESTS)
         PRIVATE ${PROJECT_WARNINGS}
     )
 
+    target_compile_features(
+        ${PROJECT_NAME}_unit_tests
+        PRIVATE
+        cxx_std_17
+    )
+
     include(Catch)
     catch_discover_tests(${PROJECT_NAME}_unit_tests)
 endif ()
@@ -55,6 +61,12 @@ target_link_libraries(
 )
 
 target_compile_options(${PROJECT_NAME} PRIVATE ${PROJECT_WARNINGS})
+
+target_compile_features(
+    ${PROJECT_NAME}
+    PRIVATE
+    cxx_std_17
+)
 
 # Install
 install(
