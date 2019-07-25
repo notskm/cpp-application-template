@@ -2,5 +2,5 @@
 
 std::string cpppt::hello_world() noexcept
 {
-	return "Hello World!";
+    return "Hello World!";
 }

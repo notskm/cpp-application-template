@@ -1,5 +1,9 @@
 # Library
-set(LIBRARY_SOURCES cpppt/dummy.hpp cpppt/dummy.cpp)
+set(
+    LIBRARY_SOURCES
+    cpppt/dummy.hpp
+    cpppt/dummy.cpp
+)
 
 add_library(${PROJECT_NAME}_lib ${LIBRARY_SOURCES})
 
@@ -8,13 +12,21 @@ target_include_directories(
     PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
-target_compile_features(${PROJECT_NAME}_lib PUBLIC cxx_std_14)
+target_compile_features(
+    ${PROJECT_NAME}_lib
+    PUBLIC
+    cxx_std_14
+)
 
 target_link_libraries(${PROJECT_NAME}_lib PRIVATE project_warnings)
 
 # Unit Tests
-if(BUILD_TESTS)
-    set(UNIT_TEST_SOURCES cpppt/dummy.test.cpp unit_tests.cpp)
+if (BUILD_TESTS)
+    set(
+        UNIT_TEST_SOURCES
+        cpppt/dummy.test.cpp
+        unit_tests.cpp
+    )
 
     add_executable(${PROJECT_NAME}_unit_tests ${UNIT_TEST_SOURCES})
 
@@ -35,7 +47,7 @@ if(BUILD_TESTS)
     set(PARSE_CATCH_TESTS_ADD_TARGET_IN_TEST_NAME OFF)
     include(ParseAndAddCatchTests)
     parseandaddcatchtests(${PROJECT_NAME}_unit_tests)
-endif()
+endif ()
 
 # Application
 add_executable(${PROJECT_NAME} main.cpp)

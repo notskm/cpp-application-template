@@ -3,9 +3,9 @@
 
 int main()
 {
-	try {
-		std::cout << cpppt::hello_world() << "\n";
-	}
-	catch (...) {
-	}
+    try {
+        std::cout << cpppt::hello_world() << "\n";
+    }
+    catch (...) {
+    }
 }

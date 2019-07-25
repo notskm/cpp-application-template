@@ -3,5 +3,5 @@
 
 TEST_CASE("Dummy")
 {
-	REQUIRE(cpppt::hello_world() == "Hello World!");
+    REQUIRE(cpppt::hello_world() == "Hello World!");
 }
