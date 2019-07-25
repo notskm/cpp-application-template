@@ -6,3 +6,5 @@ cmake_find_package_multi
 
 [imports]
 ., license* -> ./licenses @ folder=True, ignore_case=True
+lib/cmake/Catch2, Catch.cmake -> .
+lib/cmake/Catch2, CatchAddTests.cmake -> .

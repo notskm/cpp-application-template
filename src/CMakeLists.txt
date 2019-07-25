@@ -38,9 +38,8 @@ if (BUILD_TESTS)
             Catch2::Catch2
     )
 
-    set(PARSE_CATCH_TESTS_ADD_TARGET_IN_TEST_NAME OFF)
-    include(ParseAndAddCatchTests)
-    parseandaddcatchtests(${PROJECT_NAME}_unit_tests)
+    include(Catch)
+    catch_discover_tests(${PROJECT_NAME}_unit_tests)
 endif ()
 
 # Application
