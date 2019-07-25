@@ -68,7 +68,7 @@ matrix:
       env:
         - CXX_EXE='cl.exe'
         - CC_EXE='cl.exe'
-        - BUILD_TYPE='Debug' 
+        - BUILD_TYPE='Debug'
 
     - os: windows
       before_install:
@@ -78,7 +78,7 @@ matrix:
       env:
         - CXX_EXE='cl.exe'
         - CC_EXE='cl.exe'
-        - BUILD_TYPE='Release' 
+        - BUILD_TYPE='Release'
 
     - os: osx
       osx_image: xcode10.1
@@ -88,7 +88,7 @@ matrix:
       env:
         - CXX_EXE='clang++'
         - CC_EXE='clang'
-        - BUILD_TYPE='Debug' 
+        - BUILD_TYPE='Debug'
 
     - os: osx
       osx_image: xcode10.1
@@ -98,7 +98,7 @@ matrix:
       env:
         - CXX_EXE='clang++'
         - CC_EXE='clang'
-        - BUILD_TYPE='Release' 
+        - BUILD_TYPE='Release'
 
 install:
   - |
@@ -115,14 +115,15 @@ before_script:
   - cd ${TRAVIS_BUILD_DIR}/build
 
 script:
-  - which cmake
-  - cmake --version
-
   - export CXX=${CXX_EXE}
   - export CC=${CC_EXE}
 
-  - conan install .. --build missing -s build_type=${BUILD_TYPE}
+  - conan install .. --build missing -s build_type=${BUILD_TYPE} -pr default -pr ../tools/conan/build_tools
+  - ./activate.sh
 
-  - cmake .. -DCMAKE_BUILD_TYPE:STRING="${BUILD_TYPE}" -DBUILD_TESTS=ON
+  - which cmake
+  - cmake --version
+
+  - cmake .. -GNinja -DCMAKE_BUILD_TYPE:STRING="${BUILD_TYPE}" -DBUILD_TESTS=ON
   - cmake --build . --config ${BUILD_TYPE}
   - ctest --output-on-failure -C ${BUILD_TYPE}

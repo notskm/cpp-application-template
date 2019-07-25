@@ -3,6 +3,7 @@ Catch2/2.9.1@catchorg/stable
 
 [generators]
 cmake_find_package_multi
+virtualenv
 
 [imports]
 ., license* -> ./licenses @ folder=True, ignore_case=True

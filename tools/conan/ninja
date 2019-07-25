@@ -1,0 +1,2 @@
+[build_requires]
+ninja_installer/[>=1.9.0 <2.0.0]@bincrafters/stable

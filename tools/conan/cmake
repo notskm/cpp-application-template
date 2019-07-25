@@ -1,0 +1,2 @@
+[build_requires]
+cmake_installer/[>=3.12.0 <4.0.0]@conan/stable
