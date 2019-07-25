@@ -1,32 +1,26 @@
 # Library
-set(
-    LIBRARY_SOURCES
-    cpppt/dummy.hpp
-    cpppt/dummy.cpp
-)
+set(LIBRARY_SOURCES)
 
-add_library(${PROJECT_NAME}_lib ${LIBRARY_SOURCES})
+if (LIBRARY_SOURCES)
+    add_library(${PROJECT_NAME}_lib ${LIBRARY_SOURCES})
 
-target_include_directories(
-    ${PROJECT_NAME}_lib
-    PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
-)
+    target_include_directories(
+        ${PROJECT_NAME}_lib
+        PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
+    )
 
-target_compile_features(
-    ${PROJECT_NAME}_lib
-    PUBLIC
-    cxx_std_14
-)
+    target_compile_features(
+        ${PROJECT_NAME}_lib
+        PUBLIC
+        cxx_std_14
+    )
 
-target_link_libraries(${PROJECT_NAME}_lib PRIVATE project_warnings)
+    target_link_libraries(${PROJECT_NAME}_lib PRIVATE project_warnings)
+endif ()
 
 # Unit Tests
 if (BUILD_TESTS)
-    set(
-        UNIT_TEST_SOURCES
-        cpppt/dummy.test.cpp
-        unit_tests.cpp
-    )
+    set(UNIT_TEST_SOURCES unit_tests.cpp)
 
     add_executable(${PROJECT_NAME}_unit_tests ${UNIT_TEST_SOURCES})
 
@@ -40,7 +34,7 @@ if (BUILD_TESTS)
         ${PROJECT_NAME}_unit_tests
         PRIVATE
             project_warnings
-            ${PROJECT_NAME}_lib
+            $<TARGET_NAME_IF_EXISTS:${PROJECT_NAME}_lib>
             Catch2::Catch2
     )
 
@@ -56,7 +50,7 @@ target_link_libraries(
     ${PROJECT_NAME}
     PRIVATE
         project_warnings
-        ${PROJECT_NAME}_lib
+        $<TARGET_NAME_IF_EXISTS:${PROJECT_NAME}_lib>
 )
 
 # Install
