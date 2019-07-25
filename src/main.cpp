@@ -1,11 +1,8 @@
 #include "cpppt/dummy.hpp"
 #include <iostream>
 
+// NOLINTNEXTLINE(bugprone-exception-escape)
 int main()
 {
-    try {
-        std::cout << cpppt::hello_world() << "\n";
-    }
-    catch (...) {
-    }
+    std::cout << cpppt::hello_world() << "\n";
 }
