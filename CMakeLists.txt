@@ -73,8 +73,6 @@ if (MSVC)
             /w14549
             # expression has no effect; expected expression with side-effect
             /w14555
-            # pragma warning: there is no warning number 'number'
-            /w14619
             # Enable warning on thread un-safe static member initialization
             /w14640
             # Conversion from 'type1' to 'type_2' is sign-extended. This may
