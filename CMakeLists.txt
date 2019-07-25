@@ -6,17 +6,18 @@ project(cpp_project_templates VERSION 0.1.0 LANGUAGES CXX)
 
 include(GNUInstallDirs)
 
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/cmake)
-
-include(conan)
-conan_check(REQUIRED)
-conan_add_remote(
-    NAME
-    bincrafters
-    URL
-    https://api.bintray.com/conan/bincrafters/public-conan
+set(
+    CMAKE_MODULE_PATH
+    ${CMAKE_BINARY_DIR}
+    ${CMAKE_MODULE_PATH}
+    ${PROJECT_SOURCE_DIR}/cmake
 )
-conan_cmake_run(CONANFILE conanfile.txt BASIC_SETUP CMAKE_TARGETS BUILD missing)
+
+set(
+    CMAKE_PREFIX_PATH
+    ${CMAKE_BINARY_DIR}
+    ${CMAKE_PREFIX_PATH}
+)
 
 # Link this 'library' to enable warnings
 add_library(project_warnings INTERFACE)

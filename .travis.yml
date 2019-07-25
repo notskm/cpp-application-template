@@ -121,6 +121,8 @@ script:
   - export CXX=${CXX_EXE}
   - export CC=${CC_EXE}
 
+  - conan install .. --build missing -s build_type=${BUILD_TYPE}
+
   - cmake .. -DCMAKE_BUILD_TYPE:STRING="${BUILD_TYPE}" -DBUILD_TESTS=ON
   - cmake --build . --config ${BUILD_TYPE}
   - ctest --output-on-failure -C ${BUILD_TYPE}

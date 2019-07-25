@@ -1,5 +1,8 @@
 [requires]
 Catch2/2.5.0@catchorg/stable
 
+[generators]
+cmake_find_package_multi
+
 [imports]
 ., license* -> ./licenses @ folder=True, ignore_case=True

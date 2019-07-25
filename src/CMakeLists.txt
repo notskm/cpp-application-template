@@ -18,12 +18,18 @@ if(BUILD_TESTS)
 
     add_executable(${PROJECT_NAME}_unit_tests ${UNIT_TEST_SOURCES})
 
+    find_package(
+        Catch2
+        CONFIG
+        REQUIRED
+    )
+
     target_link_libraries(
         ${PROJECT_NAME}_unit_tests
         PRIVATE
             project_warnings
             ${PROJECT_NAME}_lib
-            CONAN_PKG::Catch2
+            Catch2::Catch2
     )
 
     set(PARSE_CATCH_TESTS_ADD_TARGET_IN_TEST_NAME OFF)
