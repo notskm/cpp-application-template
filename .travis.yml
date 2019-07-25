@@ -119,7 +119,7 @@ script:
   - export CC=${CC_EXE}
 
   - conan install .. --build missing -s build_type=${BUILD_TYPE} -pr default -pr ../tools/conan/build_tools
-  - ./activate.sh
+  - source ./activate.sh
 
   - which cmake
   - cmake --version
