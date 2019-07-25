@@ -15,7 +15,7 @@ if (LIBRARY_SOURCES)
         cxx_std_14
     )
 
-    target_link_libraries(${PROJECT_NAME}_lib PRIVATE project_warnings)
+    target_compile_options(${PROJECT_NAME}_lib PRIVATE ${PROJECT_WARNINGS})
 endif ()
 
 # Unit Tests
@@ -33,9 +33,13 @@ if (BUILD_TESTS)
     target_link_libraries(
         ${PROJECT_NAME}_unit_tests
         PRIVATE
-            project_warnings
             $<TARGET_NAME_IF_EXISTS:${PROJECT_NAME}_lib>
             Catch2::Catch2
+    )
+
+    target_compile_options(
+        ${PROJECT_NAME}_unit_tests
+        PRIVATE ${PROJECT_WARNINGS}
     )
 
     include(Catch)
@@ -47,10 +51,10 @@ add_executable(${PROJECT_NAME} main.cpp)
 
 target_link_libraries(
     ${PROJECT_NAME}
-    PRIVATE
-        project_warnings
-        $<TARGET_NAME_IF_EXISTS:${PROJECT_NAME}_lib>
+    PRIVATE $<TARGET_NAME_IF_EXISTS:${PROJECT_NAME}_lib>
 )
+
+target_compile_options(${PROJECT_NAME} PRIVATE ${PROJECT_WARNINGS})
 
 # Install
 install(
