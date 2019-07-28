@@ -3,5 +3,6 @@
 
 ANON_TEST_CASE()
 {
+    // NOLINTNEXTLINE (clang-analyzer-core.uninitialized.UndefReturn)
     SUCCEED("Test ran");
 }
