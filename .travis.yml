@@ -135,9 +135,9 @@ before_script:
 
 script:
   - |
-    if [ "${TRAVIS_OS_NAME}" == "windows" ]
+    if [ ${TRAVIS_OS_NAME} == 'linux' ] || [ ${TRAVIS_OS_NAME} == 'osx' ]
     then
-      powershell ../tools/travis-ci/build.ps1
-    else
       ../tools/travis-ci/build.sh
+    else
+      powershell ../tools/travis-ci/build.ps1
     fi
