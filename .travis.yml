@@ -109,21 +109,35 @@ install:
       pip install conan
     fi
 
+  - |
+    if [ "${TRAVIS_OS_NAME}" == "windows" ]
+    then
+      powershell -Command 'Set-ExecutionPolicy -ExecutionPolicy RemoteSigned'
+    fi
+
 before_script:
   - cd ${TRAVIS_BUILD_DIR}
   - mkdir build
   - cd ${TRAVIS_BUILD_DIR}/build
+  - |
+    if [ "${CXX_EXE}" == "cl.exe" ]
+    then
+      export CXX=""
+      export CC=""
+      conan profile new default --detect
+      export CXX=${CXX_EXE}
+      export CC=${CC_EXE}
+    else
+      export CXX=${CXX_EXE}
+      export CC=${CC_EXE}
+      conan profile new default --detect
+    fi
 
 script:
-  - export CXX=${CXX_EXE}
-  - export CC=${CC_EXE}
-
-  - conan install .. --build missing -s build_type=${BUILD_TYPE} -pr default -pr ../tools/conan/build_tools
-  - source ./activate.sh
-
-  - which cmake
-  - cmake --version
-
-  - cmake .. -GNinja -DCMAKE_BUILD_TYPE:STRING="${BUILD_TYPE}" -DBUILD_TESTS=ON
-  - cmake --build . --config ${BUILD_TYPE}
-  - ctest --output-on-failure -C ${BUILD_TYPE}
+  - |
+    if [ "${TRAVIS_OS_NAME}" == "windows" ]
+    then
+      powershell ../tools/travis-ci/build.ps1
+    else
+      ../tools/travis-ci/build.sh
+    fi
