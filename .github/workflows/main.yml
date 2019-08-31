@@ -1,0 +1,231 @@
+name: CI
+
+on:
+  push:
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  windows:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-2016, windows-2019]
+        cxx-compiler: [cl]
+        build-type: [Debug, Release]
+        include:
+          - cxx-compiler: cl
+            c-compiler: cl
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - uses: actions/setup-python@v1
+        with:
+          python-version: "3.x"
+          architecture: "x64"
+
+      - name: Install Conan
+        run: |
+          pip3 install conan
+          conan --version
+
+      - name: Make Build Folder
+        run: mkdir build
+
+      - name: Create Default Conan Profile
+        run: conan profile new default --detect
+
+      - name: Build and Install Dependencies
+        run: |
+          cd build
+          conan install .. --build missing -s build_type=${{ matrix.build-type }} -pr default -pr ../tools/conan/build_tools -g virtualbuildenv
+        env:
+          CXX: ${{ matrix.cxx-compiler }}
+          CC: ${{ matrix.c-compiler }}
+
+      - name: Fix Conan Virtualenv Scripts
+        shell: pwsh
+        run: |
+          Get-ChildItem ./*activate*.ps1 | ForEach-Object {
+            $content = (get-content -Path $_ | Select-String -Pattern '_old_conan_prompt' -NotMatch)
+            Set-Content -Path $_ -Value $content
+          }
+
+      - name: Build
+        shell: pwsh
+        run: |
+          cd build
+
+          ./activate_build.ps1
+          ./activate.ps1
+
+          (Get-Command cmake).Source
+          cmake --version
+
+          cmake .. -GNinja -DCMAKE_BUILD_TYPE=${{ matrix.build-type }} -DBUILD_TESTS=ON
+          cmake --build . --config ${{ matrix.build-type }}
+        env:
+          CXX: ${{ matrix.cxx-compiler }}
+          CC: ${{ matrix.c-compiler }}
+
+      - name: Test
+        shell: pwsh
+        run: |
+          cd build
+
+          ./activate.ps1
+          ctest --output-on-failure -C ${{ matrix.build-type }}
+        env:
+          CXX: ${{ matrix.cxx-compiler }}
+          CC: ${{ matrix.c-compiler }}
+
+  linux:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-18.04]
+        cxx-compiler: [g++-8, clang++-8]
+        build-type: [Debug, Release]
+        include:
+          - cxx-compiler: g++-8
+            c-compiler: gcc-8
+          - cxx-compiler: clang++-8
+            c-compiler: clang-8
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - uses: actions/setup-python@v1
+        with:
+          python-version: "3.x"
+          architecture: "x64"
+
+      - name: Install Compiler
+        run: |
+          sudo apt-get install ${{ matrix.cxx-compiler }} -y
+          ${{ matrix.cxx-compiler }} --version
+
+      - name: Install Conan
+        run: |
+          pip3 install conan
+          conan --version
+
+      - name: Make Build Folder
+        run: mkdir build
+
+      - name: Create Default Conan Profile
+        run: conan profile new default --detect
+        env:
+          CXX: ${{ matrix.cxx-compiler }}
+          CC: ${{ matrix.c-compiler }}
+
+      - name: Build and Install Dependencies
+        run: |
+          cd build
+          conan install .. --build missing -s build_type=${{ matrix.build-type }} -pr default -pr ../tools/conan/build_tools -g virtualbuildenv
+        env:
+          CXX: ${{ matrix.cxx-compiler }}
+          CC: ${{ matrix.c-compiler }}
+
+      - name: Build
+        run: |
+          cd build
+
+          source ./activate_build.sh
+          source ./activate.sh
+
+          which cmake
+          cmake --version
+
+          cmake .. -GNinja -DCMAKE_BUILD_TYPE:STRING="${{ matrix.build-type }}" -DBUILD_TESTS=ON
+          cmake --build . --config ${{ matrix.build-type }}
+        env:
+          CXX: ${{ matrix.cxx-compiler }}
+          CC: ${{ matrix.c-compiler }}
+
+      - name: Test
+        run: |
+          cd build
+
+          source ./activate.sh
+          ctest --output-on-failure -C ${{ matrix.build-type }}
+        env:
+          CXX: ${{ matrix.cxx-compiler }}
+          CC: ${{ matrix.c-compiler }}
+
+  mac:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macOS-10.14]
+        cxx-compiler: [clang++]
+        build-type: [Debug, Release]
+        include:
+          - cxx-compiler: clang++
+            c-compiler: clang
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - uses: actions/setup-python@v1
+        with:
+          python-version: "3.x"
+          architecture: "x64"
+
+      - name: Install Conan
+        run: |
+          pip3 install conan
+          conan --version
+
+      - name: Display Compiler Version
+        run: ${{ matrix.cxx-compiler }} --version
+
+      - name: Make Build Folder
+        run: mkdir build
+
+      - name: Create Default Conan Profile
+        run: conan profile new default --detect
+        env:
+          CXX: ${{ matrix.cxx-compiler }}
+          CC: ${{ matrix.c-compiler }}
+
+      - name: Build and Install Dependencies
+        run: |
+          cd build
+          conan install .. --build missing -s build_type=${{ matrix.build-type }} -pr default -pr ../tools/conan/build_tools -g virtualbuildenv
+        env:
+          CXX: ${{ matrix.cxx-compiler }}
+          CC: ${{ matrix.c-compiler }}
+
+      - name: Build
+        run: |
+          cd build
+
+          source ./activate_build.sh
+          source ./activate.sh
+
+          which cmake
+          cmake --version
+
+          cmake .. -GNinja -DCMAKE_BUILD_TYPE:STRING="${{ matrix.build-type }}" -DBUILD_TESTS=ON
+          cmake --build . --config ${{ matrix.build-type }}
+        env:
+          CXX: ${{ matrix.cxx-compiler }}
+          CC: ${{ matrix.c-compiler }}
+
+      - name: Test
+        run: |
+          cd build
+
+          source ./activate.sh
+          ctest --output-on-failure -C ${{ matrix.build-type }}
+        env:
+          CXX: ${{ matrix.cxx-compiler }}
+          CC: ${{ matrix.c-compiler }}
