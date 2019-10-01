@@ -9,8 +9,8 @@ description
 
 ### Prerequisites
 
--   C++17 compliant compiler
--   [Conan 1.17+](https://conan.io/)
+* C++17 compliant compiler
+* [Conan 1.17+](https://conan.io/)
 
 ### Setting up
 
@@ -73,6 +73,6 @@ cmake --build . --config Release
 
 ## Authors
 
--   [@username](https://github.com/username)
+* [@username](https://github.com/username)
 
 See also the list of [contributors](https://github.com/username/yourproject) who participated in this project.
