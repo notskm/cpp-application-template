@@ -1,7 +1,7 @@
 # projectname
 
 ![Build Status](https://github.com/username/projectname/workflows/CI/badge.svg)
-![GitHub](https://img.shields.io/github/license/username/projectname)
+![License](https://img.shields.io/github/license/username/projectname)
 
 description
 
@@ -9,14 +9,14 @@ description
 
 ### Prerequisites
 
-* C++17 compliant compiler
-* [Conan 1.17+](https://conan.io/)
+-   C++17 compliant compiler
+-   [Conan 1.17+](https://conan.io/)
 
 ### Setting up
 
 Clone the repository and cd into it
 
-``` sh
+```sh
 git clone https://github.com/username/projectname
 cd projectname
 ```
@@ -32,7 +32,7 @@ Set up conan remotes
 
 ```sh
 conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan
-````
+```
 
 Install the dependencies
 
@@ -73,6 +73,6 @@ cmake --build . --config Release
 
 ## Authors
 
-* [@username](https://github.com/username)
+-   [@username](https://github.com/username)
 
 See also the list of [contributors](https://github.com/username/yourproject) who participated in this project.
