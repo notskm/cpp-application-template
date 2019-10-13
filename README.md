@@ -75,4 +75,4 @@ cmake --build . --config Release
 
 * [@username](https://github.com/username)
 
-See also the list of [contributors](https://github.com/username/yourproject) who participated in this project.
+See also the list of [contributors](https://github.com/username/projectname) who participated in this project.
