@@ -86,6 +86,14 @@ target_compile_features(
 # --------------
 # Install
 # --------------
+if (TARGET ${PROJECT_NAME}_lib AND BUILD_SHARED_LIBS)
+    install(
+        TARGETS ${PROJECT_NAME}_lib
+        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    )
+endif ()
+
 install(
     TARGETS ${PROJECT_NAME}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
