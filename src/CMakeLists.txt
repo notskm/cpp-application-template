@@ -18,6 +18,15 @@ if (LIBRARY_SOURCES)
     )
 
     target_compile_options(${PROJECT_NAME}_lib PRIVATE ${PROJECT_WARNINGS})
+
+    if (WIN32 AND BUILD_SHARED_LIBS)
+        set_target_properties(
+            ${PROJECT_NAME}_lib
+            PROPERTIES
+                WINDOWS_EXPORT_ALL_SYMBOLS
+                ON
+        )
+    endif ()
 endif ()
 
 # --------------
