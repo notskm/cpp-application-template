@@ -1,3 +1,7 @@
+set(CMAKE_STATIC_LIBRARY_PREFIX lib)
+set(CMAKE_SHARED_LIBRARY_PREFIX lib)
+set(CMAKE_IMPORT_LIBRARY_PREFIX lib)
+
 # --------------
 # Library
 # --------------
@@ -5,6 +9,13 @@ set(LIBRARY_SOURCES)
 
 if (LIBRARY_SOURCES)
     add_library(${PROJECT_NAME}_lib ${LIBRARY_SOURCES})
+
+    set_target_properties(
+        ${PROJECT_NAME}_lib
+        PROPERTIES
+            OUTPUT_NAME
+            ${PROJECT_NAME}
+    )
 
     target_include_directories(
         ${PROJECT_NAME}_lib
