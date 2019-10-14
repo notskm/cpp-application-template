@@ -6,7 +6,7 @@ option(
     OFF
 )
 
-project(cpp_project_templates VERSION 0.1.0 LANGUAGES CXX)
+project(projectname VERSION 0.1.0 LANGUAGES CXX)
 
 include(GNUInstallDirs)
 
