@@ -2,6 +2,15 @@ set(CMAKE_STATIC_LIBRARY_PREFIX lib)
 set(CMAKE_SHARED_LIBRARY_PREFIX lib)
 set(CMAKE_IMPORT_LIBRARY_PREFIX lib)
 
+if (BUILD_SHARED_LIBS)
+    set(CMAKE_DEBUG_POSTFIX -d)
+else ()
+    set(CMAKE_DEBUG_POSTFIX -s-d)
+    set(CMAKE_RELEASE_POSTFIX -s)
+    set(CMAKE_MINSIZEREL_POSTFIX -s)
+    set(CMAKE_RELWITHDEBINFO_POSTFIX -s)
+endif ()
+
 # --------------
 # Library
 # --------------
