@@ -21,6 +21,10 @@ if (LIBRARY_SOURCES)
         PROPERTIES
             OUTPUT_NAME
             ${PROJECT_NAME}
+            VERSION
+            ${PROJECT_VERSION}
+            SOVERSION
+            ${PROJECT_VERSION_MAJOR}
     )
 
     target_include_directories(
