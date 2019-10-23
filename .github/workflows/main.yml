@@ -111,6 +111,8 @@ jobs:
           python-version: "3.x"
           architecture: "x64"
 
+      - run: sudo apt-get update
+
       - name: Install Compiler
         run: |
           sudo apt-get install ${{ matrix.cxx-compiler }} -y
