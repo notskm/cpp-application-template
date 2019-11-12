@@ -28,8 +28,7 @@ if (LIBRARY_SOURCES)
     )
 
     target_include_directories(
-        ${PROJECT_NAME}_lib
-        PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
+        ${PROJECT_NAME}_lib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
     )
 
     target_compile_features(
@@ -42,10 +41,7 @@ if (LIBRARY_SOURCES)
 
     if (WIN32 AND BUILD_SHARED_LIBS)
         set_target_properties(
-            ${PROJECT_NAME}_lib
-            PROPERTIES
-                WINDOWS_EXPORT_ALL_SYMBOLS
-                ON
+            ${PROJECT_NAME}_lib PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS ON
         )
     endif ()
 endif ()
@@ -66,14 +62,11 @@ if (BUILD_TESTS)
 
     target_link_libraries(
         ${PROJECT_NAME}_unit_tests
-        PRIVATE
-            $<TARGET_NAME_IF_EXISTS:${PROJECT_NAME}_lib>
-            Catch2::Catch2
+        PRIVATE $<TARGET_NAME_IF_EXISTS:${PROJECT_NAME}_lib> Catch2::Catch2
     )
 
     target_compile_options(
-        ${PROJECT_NAME}_unit_tests
-        PRIVATE ${PROJECT_WARNINGS}
+        ${PROJECT_NAME}_unit_tests PRIVATE ${PROJECT_WARNINGS}
     )
 
     target_compile_features(
@@ -92,8 +85,7 @@ endif ()
 add_executable(${PROJECT_NAME} main.cpp)
 
 target_link_libraries(
-    ${PROJECT_NAME}
-    PRIVATE $<TARGET_NAME_IF_EXISTS:${PROJECT_NAME}_lib>
+    ${PROJECT_NAME} PRIVATE $<TARGET_NAME_IF_EXISTS:${PROJECT_NAME}_lib>
 )
 
 target_compile_options(${PROJECT_NAME} PRIVATE ${PROJECT_WARNINGS})
