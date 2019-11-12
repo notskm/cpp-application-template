@@ -1,7 +1,15 @@
-option(RUN_CONAN "Run conan install automatically" OFF)
+option(
+    RUN_CONAN
+    "Run conan install automatically"
+    OFF
+)
 
 if (RUN_CONAN)
-    if (NOT EXISTS "${CMAKE_BINARY_DIR}/conan.cmake")
+    if (
+        NOT
+        EXISTS
+        "${CMAKE_BINARY_DIR}/conan.cmake"
+    )
         message(
             STATUS
                 "Downloading conan.cmake from https://github.com/conan-io/cmake-conan"
