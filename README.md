@@ -10,66 +10,41 @@ description
 ### Prerequisites
 
 * C++17 compliant compiler
-* [Conan 1.17+](https://conan.io/)
+* [CMake 3.12+](https://cmake.org/download/)
+* [Conan](https://conan.io/downloads.html)
 
 ### Setting up
-
-Clone the repository and cd into it
 
 ```sh
 git clone https://github.com/username/projectname
 cd projectname
 ```
 
-Make a build folder and cd into it
-
 ```sh
 mkdir build
 cd build
 ```
 
-Set up conan remotes
-
-```sh
-conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan
-```
-
-Install the dependencies
-
-```sh
-conan install .. --build missing -s build_type=Release -pr default -pr ../tools/conan/build_tools
-```
-
-Activate virtualenv
-
-```sh
-# bash:
-source activate.sh
-```
-
-```sh
-# cmd:
-./activate.bat
-```
-
-```sh
-# powershell:
-./activate.ps1
-```
-
 ### Makefile generators (Make, Ninja, etc.)
 
 ```sh
-cmake .. -GNinja -DCMAKE_BUILD_TYPE=Release
+cmake .. -GNinja -DCMAKE_BUILD_TYPE=Release -DRUN_CONAN=ON
 cmake --build .
 ```
 
 ### Multi generators (Visual Studio, etc.)
 
 ```sh
-cmake .. -G "Visual Studio 16 2019"
+cmake .. -G "Visual Studio 16 2019" -DRUN_CONAN=ON
 cmake --build . --config Release
 ```
+
+### CMake options
+
+|   Option    | Default | Description                        |
+| :---------: | :-----: | ---------------------------------- |
+|  RUN_CONAN  |   OFF   | Runs `conan install` automatically |
+| BUILD_TESTS |   OFF   | Builds the tests                   |
 
 ## Authors
 
