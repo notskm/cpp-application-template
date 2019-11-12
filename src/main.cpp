@@ -1,7 +1,7 @@
 #include <iostream>
 
 // NOLINTNEXTLINE(bugprone-exception-escape)
-int main()
+auto main() -> int
 {
     std::cout << "Hello World!\n";
 }
