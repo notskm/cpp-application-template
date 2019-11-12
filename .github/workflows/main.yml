@@ -16,7 +16,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [windows-2016, windows-2019]
+        os: [windows-latest]
         cxx-compiler: [cl]
         build-type: [Debug, Release]
         include:
@@ -92,7 +92,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-18.04]
+        os: [ubuntu-latest]
         cxx-compiler: [g++-8, clang++-8]
         build-type: [Debug, Release]
         include:
@@ -170,7 +170,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macOS-10.14]
+        os: [macOS-latest]
         cxx-compiler: [clang++]
         build-type: [Debug, Release]
         include:
