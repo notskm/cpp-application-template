@@ -1,0 +1,23 @@
+name: clang-format
+
+on:
+  push:
+    branches:
+      - master
+      - release/**
+    tags:
+      - v[0-9]+.[0-9]+.[0-9]+*
+  pull_request:
+
+jobs:
+  clang-format:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - uses: DoozyX/clang-format-lint-action@v0.5
+        with:
+          source: '.'
+          extensions: 'hpp,cpp'
+          clangFormatVersion: 9
