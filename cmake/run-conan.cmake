@@ -1,7 +1,7 @@
 option(
     RUN_CONAN
     "Run conan install automatically"
-    OFF
+    ON
 )
 
 if (RUN_CONAN)

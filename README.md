@@ -29,14 +29,14 @@ cd build
 ### Makefile generators (Make, Ninja, etc.)
 
 ```sh
-cmake .. -GNinja -DCMAKE_BUILD_TYPE=Release -DRUN_CONAN=ON
+cmake .. -GNinja -DCMAKE_BUILD_TYPE=Release
 cmake --build .
 ```
 
 ### Multi generators (Visual Studio, etc.)
 
 ```sh
-cmake .. -G "Visual Studio 16 2019" -DRUN_CONAN=ON
+cmake .. -G "Visual Studio 16 2019"
 cmake --build . --config Release
 ```
 
@@ -44,7 +44,7 @@ cmake --build . --config Release
 
 |       Option       | Default | Description                        |
 | :----------------: | :-----: | ---------------------------------- |
-|     RUN_CONAN      |   OFF   | Runs `conan install` automatically |
+|     RUN_CONAN      |   ON    | Runs `conan install` automatically |
 |    BUILD_TESTS     |   OFF   | Builds the tests                   |
 | WARNINGS_AS_ERRORS |   OFF   | Treat compiler warnings as errors  |
 
