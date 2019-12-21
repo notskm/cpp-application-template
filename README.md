@@ -42,10 +42,11 @@ cmake --build . --config Release
 
 ### CMake options
 
-|   Option    | Default | Description                        |
-| :---------: | :-----: | ---------------------------------- |
-|  RUN_CONAN  |   OFF   | Runs `conan install` automatically |
-| BUILD_TESTS |   OFF   | Builds the tests                   |
+|       Option       | Default | Description                        |
+| :----------------: | :-----: | ---------------------------------- |
+|     RUN_CONAN      |   OFF   | Runs `conan install` automatically |
+|    BUILD_TESTS     |   OFF   | Builds the tests                   |
+| WARNINGS_AS_ERRORS |   OFF   | Treat compiler warnings as errors  |
 
 ## Authors
 

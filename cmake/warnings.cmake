@@ -1,3 +1,9 @@
+option(
+    WARNINGS_AS_ERRORS
+    "Treat warnings as errors"
+    OFF
+)
+
 if (MSVC)
     set(
         PROJECT_WARNINGS
@@ -5,8 +11,6 @@ if (MSVC)
         /permissive-
         # all reasonable warnings
         /W4
-        # treat warnings as errors
-        /WX
         # 'identfier': conversion from 'type1' to 'type1', possible loss of data
         /w14242
         # 'operator': conversion from 'type1:field_bits' to 'type2:field_bits',
@@ -85,8 +89,6 @@ else ()
         # warn on security issues around functions that format output (ie
         # printf)
         -Wformat=2
-        # treat warnings as errors
-        -Werror
     )
 endif ()
 
@@ -110,4 +112,12 @@ if (
         # warn if you perform a cast to the same type
         -Wuseless-cast
     )
+endif ()
+
+if (${WARNINGS_AS_ERRORS})
+    if (MSVC)
+        set(PROJECT_WARNINGS /WX ${PROJECT_WARNINGS})
+    else ()
+        set(PROJECT_WARNINGS -Werror ${PROJECT_WARNINGS})
+    endif ()
 endif ()
