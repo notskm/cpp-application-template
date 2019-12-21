@@ -162,7 +162,7 @@ jobs:
           which cmake
           cmake --version
 
-          cmake .. -GNinja -DCMAKE_BUILD_TYPE:STRING="${{ matrix.build-type }}" -DBUILD_TESTS=ON
+          cmake .. -GNinja -DCMAKE_BUILD_TYPE:STRING="${{ matrix.build-type }}" -DBUILD_TESTS=ON -DWARNINGS_AS_ERRORS=ON
           cmake --build . --config ${{ matrix.build-type }}
 
       - name: Test
