@@ -16,72 +16,74 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [windows-latest, ubuntu-latest, macos-latest]
-        cxx-compiler: [cl, g++, clang++]
-        compiler-version: [default, 8]
-
-        build-type: [Debug, Release]
-        include:
-          - cxx-compiler: cl
+        config:
+          - os: "windows-latest"
+            cxx-compiler: cl
             c-compiler: cl
+            compiler-version: default
+            build-type: Debug
 
-          - cxx-compiler: clang++
-            c-compiler: clang
+          - os: "windows-latest"
+            cxx-compiler: cl
+            c-compiler: cl
+            compiler-version: default
+            build-type: Release
 
-          - cxx-compiler: g++
+          - os: "ubuntu-latest"
+            cxx-compiler: g++
             c-compiler: gcc
-
-        exclude:
-          - os: windows-latest
-            cxx-compiler: g++
-
-          - os: windows-latest
-            cxx-compiler: clang++
-
-          - os: windows-latest
-            cxx-compiler: cl
             compiler-version: 8
+            build-type: Debug
 
-          - os: ubuntu-latest
-            cxx-compiler: cl
-
-          - os: ubuntu-latest
+          - os: "ubuntu-latest"
             cxx-compiler: g++
-            compiler-version: default
-
-          - os: ubuntu-latest
-            cxx-compiler: clang++
-            compiler-version: default
-
-          - os: macos-latest
-            cxx-compiler: g++
-
-          - os: macos-latest
-            cxx-compiler: cl
-
-          - os: macos-latest
-            cxx-compiler: clang++
+            c-compiler: gcc
             compiler-version: 8
+            build-type: Release
 
-    runs-on: ${{ matrix.os }}
+          - os: "ubuntu-latest"
+            cxx-compiler: clang++
+            c-compiler: clang
+            compiler-version: 8
+            build-type: Debug
+
+          - os: "ubuntu-latest"
+            cxx-compiler: clang++
+            c-compiler: clang
+            compiler-version: 8
+            build-type: Release
+
+          - os: "macos-latest"
+            cxx-compiler: clang++
+            c-compiler: clang
+            compiler-version: default
+            build-type: Debug
+
+          - os: "macos-latest"
+            cxx-compiler: clang++
+            c-compiler: clang
+            compiler-version: default
+            build-type: Release
+
+    runs-on: ${{ matrix.config.os }}
 
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-python@v1
       - run: sudo apt-get update
-        if: matrix.os == 'ubuntu-latest'
+        if: matrix.config.os == 'ubuntu-latest'
 
       - name: Install Compiler
         shell: pwsh
         run: |
-          $compiler = '${{ matrix.cxx-compiler }}'
-          $version = '${{ matrix.compiler-version }}'
+          $compiler = '${{ matrix.config.cxx-compiler }}'
+          $version = '${{ matrix.config.compiler-version }}'
 
           if ($version -ne 'default') {
             sudo apt-get install "$compiler-$version" -y
             Invoke-Expression "$compiler-$version --version"
           }
-        if: matrix.os == 'ubuntu-latest'
+        if: matrix.config.os == 'ubuntu-latest'
 
       - name: Install Conan
         run: |
@@ -91,9 +93,9 @@ jobs:
       - name: Set CXX and CC
         shell: pwsh
         run: |
-          $cxx_compiler = '${{ matrix.cxx-compiler }}'
-          $c_compiler = '${{ matrix.c-compiler }}'
-          $version = '${{ matrix.compiler-version }}'
+          $cxx_compiler = '${{ matrix.config.cxx-compiler }}'
+          $c_compiler = '${{ matrix.config.c-compiler }}'
+          $version = '${{ matrix.config.compiler-version }}'
 
           if ($version -ne 'default') {
             $cxx_compiler = "$cxx_compiler-$version"
@@ -117,7 +119,7 @@ jobs:
         run: |
           mkdir build
           cd build
-          conan install .. --build missing -s build_type=${{ matrix.build-type }} -pr default -pr ../tools/conan/build_tools -g virtualbuildenv
+          conan install .. --build missing -s build_type=${{ matrix.config.build-type }} -pr default -pr ../tools/conan/build_tools -g virtualbuildenv
 
       - name: Fix Conan Virtualenv Scripts
         shell: pwsh
@@ -126,7 +128,7 @@ jobs:
             $content = (get-content -Path $_ | Select-String -Pattern '_old_conan_prompt' -NotMatch)
             Set-Content -Path $_ -Value $content
           }
-        if: matrix.os == 'windows-latest'
+        if: matrix.config.os == 'windows-latest'
 
       - name: Activate Conan Environment
         shell: pwsh
@@ -141,7 +143,7 @@ jobs:
             $value = $_.Value
             echo "::set-env name=$name::$value"
           }
-        if: matrix.os == 'windows-latest'
+        if: matrix.config.os == 'windows-latest'
 
       - name: Activate Conan Environment
         shell: bash
@@ -154,7 +156,7 @@ jobs:
           while IFS='=' read -r name value ; do
             echo "::set-env name=$name::$value"
           done < <(env)
-        if: matrix.os != 'windows-latest'
+        if: matrix.config.os != 'windows-latest'
 
       - name: Build
         run: |
@@ -162,10 +164,10 @@ jobs:
           which cmake
           cmake --version
 
-          cmake .. -GNinja -DCMAKE_BUILD_TYPE:STRING="${{ matrix.build-type }}" -DBUILD_TESTS=ON -DWARNINGS_AS_ERRORS=ON -DRUN_CONAN=OFF
-          cmake --build . --config ${{ matrix.build-type }}
+          cmake .. -GNinja -DCMAKE_BUILD_TYPE:STRING="${{ matrix.config.build-type }}" -DBUILD_TESTS=ON -DWARNINGS_AS_ERRORS=ON -DRUN_CONAN=OFF
+          cmake --build . --config ${{ matrix.config.build-type }}
 
       - name: Test
         run: |
           cd build
-          ctest --output-on-failure -C ${{ matrix.build-type }}
+          ctest --output-on-failure -C ${{ matrix.config.build-type }}
