@@ -34,7 +34,7 @@ if (LIBRARY_SOURCES)
         cxx_std_17
     )
 
-    target_compile_options(${PROJECT_NAME}_lib PRIVATE ${PROJECT_WARNINGS})
+    target_enable_warnings(${PROJECT_NAME}_lib)
 
     if (WIN32 AND BUILD_SHARED_LIBS)
         set_target_properties(
@@ -62,9 +62,7 @@ if (BUILD_TESTS)
         PRIVATE $<TARGET_NAME_IF_EXISTS:${PROJECT_NAME}_lib> Catch2::Catch2
     )
 
-    target_compile_options(
-        ${PROJECT_NAME}_unit_tests PRIVATE ${PROJECT_WARNINGS}
-    )
+    target_enable_warnings(${PROJECT_NAME}_unit_tests)
 
     target_compile_features(
         ${PROJECT_NAME}_unit_tests
@@ -85,7 +83,7 @@ target_link_libraries(
     ${PROJECT_NAME} PRIVATE $<TARGET_NAME_IF_EXISTS:${PROJECT_NAME}_lib>
 )
 
-target_compile_options(${PROJECT_NAME} PRIVATE ${PROJECT_WARNINGS})
+target_enable_warnings(${PROJECT_NAME})
 
 target_compile_features(
     ${PROJECT_NAME}
