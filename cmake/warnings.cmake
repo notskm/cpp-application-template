@@ -114,8 +114,6 @@ function (target_enable_warnings target)
         target_compile_options(
             ${target}
             PRIVATE
-                PROJECT_WARNINGS
-                ${PROJECT_WARNINGS}
                 # warn if indentation implies blocks where blocks do not exist
                 -Wmisleading-indentation
                 # warn if if / else chain has duplicated conditions
