@@ -16,6 +16,8 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
+      - uses: actions/setup-python@v1
+
       - name: Install cmake-format
         run: |
           pip3 install cmake_format
