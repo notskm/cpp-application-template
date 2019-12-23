@@ -19,12 +19,9 @@ if (LIBRARY_SOURCES)
     set_target_properties(
         ${PROJECT_NAME}_lib
         PROPERTIES
-            OUTPUT_NAME
-            ${PROJECT_NAME}
-            VERSION
-            ${PROJECT_VERSION}
-            SOVERSION
-            ${PROJECT_VERSION_MAJOR}
+            OUTPUT_NAME ${PROJECT_NAME}
+            VERSION ${PROJECT_VERSION}
+            SOVERSION ${PROJECT_VERSION_MAJOR}
     )
 
     target_include_directories(
