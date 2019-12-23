@@ -2,6 +2,7 @@
 
 ![Build Status](https://github.com/username/projectname/workflows/CI/badge.svg)
 ![Clang-Format Status](https://github.com/username/projectname/workflows/clang-format/badge.svg)
+![CMake-Format Status](https://github.com/username/projectname/workflows/cmake-format/badge.svg)
 ![License](https://img.shields.io/github/license/username/projectname)
 
 description
