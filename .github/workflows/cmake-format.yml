@@ -1,0 +1,42 @@
+name: cmake-format
+
+on:
+  push:
+    branches:
+      - master
+      - release/**
+    tags:
+      - v[0-9]+.[0-9]+.[0-9]+*
+  pull_request:
+
+jobs:
+  cmake-format:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - uses: actions/setup-python@v1
+
+      - name: Install cmake-format
+        run: |
+          pip3 install cmake_format
+          cmake-format --version
+
+      - name: Run cmake-format
+        run: |
+          ret_val=0
+
+          for file in **/CMakeLists.txt **/*.cmake; do
+            echo $file
+            diff $file <(cmake-format $file) --color
+            status=$?
+
+            echo
+
+            if [ $status -ne 0 ]; then
+              ret_val=$status
+            fi
+          done
+
+          exit $ret_val
