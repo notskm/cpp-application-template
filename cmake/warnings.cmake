@@ -11,10 +11,10 @@ option(
 
 # cmake-format: on
 
-function (target_enable_warnings target)
+function (target_enable_warnings TARGET)
     if (MSVC)
         target_compile_options(
-            ${target}
+            ${TARGET}
             PRIVATE
                 # enforces standard conformance
                 /permissive-
@@ -70,7 +70,7 @@ function (target_enable_warnings target)
         )
     else ()
         target_compile_options(
-            ${target}
+            ${TARGET}
             PRIVATE
                 # reasonable and standard
                 -Wall
@@ -112,7 +112,7 @@ function (target_enable_warnings target)
         "GNU"
     )
         target_compile_options(
-            ${target}
+            ${TARGET}
             PRIVATE
                 # warn if indentation implies blocks where blocks do not exist
                 -Wmisleading-indentation
@@ -130,9 +130,9 @@ function (target_enable_warnings target)
 
     if (${WARNINGS_AS_ERRORS})
         if (MSVC)
-            target_compile_options(${target} PRIVATE /WX)
+            target_compile_options(${TARGET} PRIVATE /WX)
         else ()
-            target_compile_options(${target} PRIVATE -Werror)
+            target_compile_options(${TARGET} PRIVATE -Werror)
         endif ()
     endif ()
 endfunction ()
