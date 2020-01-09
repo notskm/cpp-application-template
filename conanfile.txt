@@ -1,5 +1,5 @@
 [requires]
-Catch2/[~=2]@catchorg/stable
+catch2/[~=2]
 
 [generators]
 cmake_find_package_multi

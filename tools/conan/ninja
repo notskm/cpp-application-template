@@ -1,2 +1,2 @@
 [build_requires]
-ninja_installer/[~=1]@bincrafters/stable
+ninja/[~=1]
