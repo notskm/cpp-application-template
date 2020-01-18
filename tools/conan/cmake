@@ -1,2 +1,2 @@
 [build_requires]
-cmake_installer/[~=3]@conan/stable
+cmake/[~=3]

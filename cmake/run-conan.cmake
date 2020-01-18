@@ -17,8 +17,7 @@ if (RUN_CONAN)
 
         file(
             DOWNLOAD
-            # Using develop because master doesn't work with msvc currently
-            "https://github.com/conan-io/cmake-conan/raw/develop/conan.cmake"
+            "https://github.com/conan-io/cmake-conan/raw/master/conan.cmake"
             "${CMAKE_BINARY_DIR}/conan.cmake"
         )
     endif ()
