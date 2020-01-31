@@ -11,7 +11,30 @@ endif ()
 # --------------
 # Library
 # --------------
-set(LIBRARY_SOURCES)
+file(
+    GLOB_RECURSE
+    LIBRARY_SOURCES
+    CONFIGURE_DEPENDS
+    *.h
+    *.hh
+    *.hpp
+    *.hxx
+    *.h++
+    *.c
+    *.cc
+    *.cpp
+    *.cxx
+    *.c++
+    *.inl
+)
+
+list(
+    FILTER
+    LIBRARY_SOURCES
+    EXCLUDE
+    REGEX
+    ".*\.test\..*"
+)
 
 if (LIBRARY_SOURCES)
     add_library(${PROJECT_NAME}_lib ${LIBRARY_SOURCES})
