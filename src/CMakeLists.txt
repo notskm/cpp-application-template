@@ -67,19 +67,6 @@ if (BUILD_TESTS)
 endif ()
 
 # --------------
-# Application
-# --------------
-add_executable(${PROJECT_NAME} main.cpp)
-
-target_link_libraries(
-    ${PROJECT_NAME} PRIVATE $<TARGET_NAME_IF_EXISTS:${PROJECT_NAME}_lib>
-)
-
-target_enable_warnings(${PROJECT_NAME})
-
-target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
-
-# --------------
 # Install
 # --------------
 if (TARGET ${PROJECT_NAME}_lib AND BUILD_SHARED_LIBS)
@@ -89,9 +76,3 @@ if (TARGET ${PROJECT_NAME}_lib AND BUILD_SHARED_LIBS)
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     )
 endif ()
-
-install(
-    TARGETS ${PROJECT_NAME}
-    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-)

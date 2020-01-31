@@ -35,6 +35,7 @@ if (BUILD_TESTS)
 endif ()
 
 add_subdirectory(src)
+add_subdirectory(apps)
 
 install(
     DIRECTORY ${CMAKE_BINARY_DIR}/licenses
