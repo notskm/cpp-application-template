@@ -26,6 +26,8 @@ file(
     ${PROJECT_SOURCE_DIR}/src/*.test.inl
 )
 
+set(UNIT_TEST_SOURCES unit_tests.main.cpp ${UNIT_TEST_SOURCES})
+
 add_executable(unit_tests ${UNIT_TEST_SOURCES})
 
 find_package(
