@@ -30,12 +30,12 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 include(run-conan)
 include(warnings)
 
-if (BUILD_TESTS)
-    enable_testing()
-endif ()
-
 add_subdirectory(src)
 add_subdirectory(apps)
+if (BUILD_TESTS)
+    enable_testing()
+    add_subdirectory(tests)
+endif ()
 
 install(
     DIRECTORY ${CMAKE_BINARY_DIR}/licenses

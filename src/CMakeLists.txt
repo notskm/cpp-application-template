@@ -40,33 +40,6 @@ if (LIBRARY_SOURCES)
 endif ()
 
 # --------------
-# Unit Tests
-# --------------
-if (BUILD_TESTS)
-    set(UNIT_TEST_SOURCES unit_tests.cpp)
-
-    add_executable(${PROJECT_NAME}_unit_tests ${UNIT_TEST_SOURCES})
-
-    find_package(
-        Catch2
-        CONFIG
-        REQUIRED
-    )
-
-    target_link_libraries(
-        ${PROJECT_NAME}_unit_tests
-        PRIVATE $<TARGET_NAME_IF_EXISTS:${PROJECT_NAME}_lib> Catch2::Catch2
-    )
-
-    target_enable_warnings(${PROJECT_NAME}_unit_tests)
-
-    target_compile_features(${PROJECT_NAME}_unit_tests PRIVATE cxx_std_17)
-
-    include(Catch)
-    catch_discover_tests(${PROJECT_NAME}_unit_tests)
-endif ()
-
-# --------------
 # Install
 # --------------
 if (TARGET ${PROJECT_NAME}_lib AND BUILD_SHARED_LIBS)
