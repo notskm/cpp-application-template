@@ -16,7 +16,17 @@ foreach (ENTRY_FILE ${ENTRY_FILES})
         GLOB_RECURSE
         APP_SOURCES
         CONFIGURE_DEPENDS
-        ${APP_NAME}/*.*pp
+        ${APP_NAME}/*.h
+        ${APP_NAME}/*.hh
+        ${APP_NAME}/*.hpp
+        ${APP_NAME}/*.hxx
+        ${APP_NAME}/*.h++
+        ${APP_NAME}/*.c
+        ${APP_NAME}/*.cc
+        ${APP_NAME}/*.cpp
+        ${APP_NAME}/*.cxx
+        ${APP_NAME}/*.c++
+        ${APP_NAME}/*.inl
     )
 
     set(APP_SOURCES ${ENTRY_FILE} ${APP_SOURCES})
