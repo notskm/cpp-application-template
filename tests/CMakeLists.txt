@@ -1,22 +1,29 @@
 file(
     GLOB_RECURSE
-    UNIT_TEST_MERGED_SOURCES
-    CONFIGURE_DEPENDS
-    ${PROJECT_SOURCE_DIR}/src/*.test.*pp
-)
-
-file(
-    GLOB_RECURSE
-    UNIT_TEST_SEPARATE_SOURCES
-    CONFIGURE_DEPENDS
-    unit_tests/*.*pp
-)
-
-set(
     UNIT_TEST_SOURCES
-    unit_tests.main.cpp
-    ${UNIT_TEST_MERGED_SOURCES}
-    ${UNIT_TEST_SEPARATE_SOURCES}
+    CONFIGURE_DEPENDS
+    unit_tests/*.h
+    unit_tests/*.hh
+    unit_tests/*.hpp
+    unit_tests/*.hxx
+    unit_tests/*.h++
+    unit_tests/*.c
+    unit_tests/*.cc
+    unit_tests/*.cpp
+    unit_tests/*.cxx
+    unit_tests/*.c++
+    unit_tests/*.inl
+    ${PROJECT_SOURCE_DIR}/src/*.test.h
+    ${PROJECT_SOURCE_DIR}/src/*.test.hh
+    ${PROJECT_SOURCE_DIR}/src/*.test.hpp
+    ${PROJECT_SOURCE_DIR}/src/*.test.hxx
+    ${PROJECT_SOURCE_DIR}/src/*.test.h++
+    ${PROJECT_SOURCE_DIR}/src/*.test.c
+    ${PROJECT_SOURCE_DIR}/src/*.test.cc
+    ${PROJECT_SOURCE_DIR}/src/*.test.cpp
+    ${PROJECT_SOURCE_DIR}/src/*.test.cxx
+    ${PROJECT_SOURCE_DIR}/src/*.test.c++
+    ${PROJECT_SOURCE_DIR}/src/*.test.inl
 )
 
 add_executable(unit_tests ${UNIT_TEST_SOURCES})
