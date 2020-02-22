@@ -7,7 +7,7 @@ option(
 )
 
 project(
-    projectname
+    cpp-application-template
     VERSION 0.1.0
     LANGUAGES CXX
 )

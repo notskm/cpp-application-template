@@ -1,11 +1,9 @@
-# projectname
+# cpp-application-template
 
-![Build Status](https://github.com/username/projectname/workflows/CI/badge.svg)
-![Clang-Format Status](https://github.com/username/projectname/workflows/clang-format/badge.svg)
-![CMake-Format Status](https://github.com/username/projectname/workflows/cmake-format/badge.svg)
-![License](https://img.shields.io/github/license/username/projectname)
-
-description
+![Build Status](https://github.com/notskm/cpp-application-template/workflows/CI/badge.svg)
+![Clang-Format Status](https://github.com/notskm/cpp-application-template/workflows/clang-format/badge.svg)
+![CMake-Format Status](https://github.com/notskm/cpp-application-template/workflows/cmake-format/badge.svg)
+![License](https://img.shields.io/github/license/notskm/cpp-application-template)
 
 ## Building
 
@@ -18,8 +16,8 @@ description
 ### Setting up
 
 ```sh
-git clone https://github.com/username/projectname
-cd projectname
+git clone https://github.com/notskm/cpp-application-template
+cd cpp-application-template
 ```
 
 ```sh
@@ -51,6 +49,6 @@ cmake --build . --config Release
 
 ## Authors
 
-* [@username](https://github.com/username)
+* [@notskm](https://github.com/notskm)
 
-See also the list of [contributors](https://github.com/username/projectname) who participated in this project.
+See also the list of [contributors](https://github.com/notskm/cpp-application-template) who participated in this project.
