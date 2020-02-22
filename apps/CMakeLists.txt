@@ -31,19 +31,23 @@ foreach (ENTRY_FILE ${ENTRY_FILES})
 
     set(APP_SOURCES ${ENTRY_FILE} ${APP_SOURCES})
 
-    add_executable(${APP_NAME} ${APP_SOURCES})
+    set(EXE_TARGET ${APP_NAME}_exe)
+
+    add_executable(${EXE_TARGET} ${APP_SOURCES})
+
+    set_target_properties(${EXE_TARGET} PROPERTIES OUTPUT_NAME ${APP_NAME})
 
     target_link_libraries(
-        ${APP_NAME} PRIVATE $<TARGET_NAME_IF_EXISTS:${PROJECT_NAME}_lib>
+        ${EXE_TARGET} PRIVATE $<TARGET_NAME_IF_EXISTS:${PROJECT_NAME}>
     )
 
     include(warnings)
-    target_enable_warnings(${APP_NAME})
+    target_enable_warnings(${EXE_TARGET})
 
-    target_compile_features(${APP_NAME} PRIVATE cxx_std_17)
+    target_compile_features(${EXE_TARGET} PRIVATE cxx_std_17)
 
     install(
-        TARGETS ${APP_NAME}
+        TARGETS ${EXE_TARGET}
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     )

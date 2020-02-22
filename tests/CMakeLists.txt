@@ -37,8 +37,7 @@ find_package(
 )
 
 target_link_libraries(
-    unit_tests PRIVATE $<TARGET_NAME_IF_EXISTS:${PROJECT_NAME}_lib>
-                       Catch2::Catch2
+    unit_tests PRIVATE $<TARGET_NAME_IF_EXISTS:${PROJECT_NAME}> Catch2::Catch2
 )
 
 include(warnings)

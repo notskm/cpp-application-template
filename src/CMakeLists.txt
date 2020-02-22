@@ -37,27 +37,24 @@ list(
 )
 
 if (LIBRARY_SOURCES)
-    add_library(${PROJECT_NAME}_lib ${LIBRARY_SOURCES})
+    add_library(${PROJECT_NAME} ${LIBRARY_SOURCES})
 
     set_target_properties(
-        ${PROJECT_NAME}_lib
-        PROPERTIES
-            OUTPUT_NAME ${PROJECT_NAME}
-            VERSION ${PROJECT_VERSION}
-            SOVERSION ${PROJECT_VERSION_MAJOR}
+        ${PROJECT_NAME} PROPERTIES VERSION ${PROJECT_VERSION}
+                                   SOVERSION ${PROJECT_VERSION_MAJOR}
     )
 
     target_include_directories(
-        ${PROJECT_NAME}_lib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
+        ${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
     )
 
-    target_compile_features(${PROJECT_NAME}_lib PUBLIC cxx_std_17)
+    target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
 
-    target_enable_warnings(${PROJECT_NAME}_lib)
+    target_enable_warnings(${PROJECT_NAME})
 
     if (WIN32 AND BUILD_SHARED_LIBS)
         set_target_properties(
-            ${PROJECT_NAME}_lib PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS ON
+            ${PROJECT_NAME} PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS ON
         )
     endif ()
 endif ()
@@ -65,9 +62,9 @@ endif ()
 # --------------
 # Install
 # --------------
-if (TARGET ${PROJECT_NAME}_lib AND BUILD_SHARED_LIBS)
+if (TARGET ${PROJECT_NAME} AND BUILD_SHARED_LIBS)
     install(
-        TARGETS ${PROJECT_NAME}_lib
+        TARGETS ${PROJECT_NAME}
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     )
