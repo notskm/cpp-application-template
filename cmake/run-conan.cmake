@@ -8,7 +8,7 @@ if (RUN_CONAN)
     if (
         NOT
         EXISTS
-        "${CMAKE_BINARY_DIR}/conan.cmake"
+        "${CMAKE_CURRENT_BINARY_DIR}/conan.cmake"
     )
         message(
             STATUS
@@ -18,11 +18,11 @@ if (RUN_CONAN)
         file(
             DOWNLOAD
             "https://github.com/conan-io/cmake-conan/raw/master/conan.cmake"
-            "${CMAKE_BINARY_DIR}/conan.cmake"
+            "${CMAKE_CURRENT_BINARY_DIR}/conan.cmake"
         )
     endif ()
 
-    include(${CMAKE_BINARY_DIR}/conan.cmake)
+    include(${CMAKE_CURRENT_BINARY_DIR}/conan.cmake)
 
     conan_check(REQUIRED)
     conan_add_remote(
