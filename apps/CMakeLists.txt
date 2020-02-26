@@ -38,7 +38,8 @@ foreach (ENTRY_FILE ${ENTRY_FILES})
     set_target_properties(${EXE_TARGET} PROPERTIES OUTPUT_NAME ${APP_NAME})
 
     target_link_libraries(
-        ${EXE_TARGET} PRIVATE $<TARGET_NAME_IF_EXISTS:${PROJECT_NAME}>
+        ${EXE_TARGET}
+        PRIVATE $<TARGET_NAME_IF_EXISTS:${PROJECT_NAME}::${PROJECT_NAME}>
     )
 
     include(warnings)
