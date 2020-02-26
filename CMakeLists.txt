@@ -69,7 +69,6 @@ install(
 # --------------
 # Packaging
 # --------------
-
 set(CPACK_PACKAGE_NAME ${PROJECT_NAME})
 set(CPACK_PACKAGE_VENDOR "Humanity") # Change this value
 set(CPACK_PACKAGE_INSTALL_DIRECTORY ${PROJECT_NAME})
