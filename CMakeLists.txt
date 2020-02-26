@@ -13,6 +13,7 @@ project(
 )
 
 include(GNUInstallDirs)
+set(CMAKE_INSTALL_DOCDIR ${CMAKE_INSTALL_DATAROOTDIR}/doc/${PROJECT_NAME})
 
 list(
     APPEND
