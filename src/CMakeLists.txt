@@ -39,6 +39,12 @@ list(
 if (LIBRARY_SOURCES)
     add_library(${PROJECT_NAME} ${LIBRARY_SOURCES})
 
+    add_library(
+        ${PROJECT_NAME}::${PROJECT_NAME}
+        ALIAS
+        ${PROJECT_NAME}
+    )
+
     set_target_properties(
         ${PROJECT_NAME} PROPERTIES VERSION ${PROJECT_VERSION}
                                    SOVERSION ${PROJECT_VERSION_MAJOR}
