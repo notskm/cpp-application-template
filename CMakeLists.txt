@@ -66,14 +66,70 @@ install(
     COMPONENT ${PROJECT_NAME}_Always_Required
 )
 
-set(CPACK_RESOURCE_FILE_LICENSE ${PROJECT_SOURCE_DIR}/LICENSE)
+# --------------
+# Packaging
+# --------------
+set(CPACK_PACKAGE_NAME ${PROJECT_NAME})
+set(CPACK_PACKAGE_VENDOR "Humanity") # Change this value
+set(CPACK_PACKAGE_INSTALL_DIRECTORY ${PROJECT_NAME})
+set(CPACK_PACKAGE_VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
+set(CPACK_PACKAGE_VERSION_MINOR ${PROJECT_VERSION_MINOR})
+set(CPACK_PACKAGE_VERSION_PATCH ${PROJECT_VERSION_PATCH})
+set(CPACK_VERBATIM_VARIABLES TRUE)
+set(CPACK_RESOURCE_FILE_LICENSE ${CMAKE_CURRENT_LIST_DIR}/LICENSE)
 
 set(CPACK_NSIS_ENABLE_UNINSTALL_BEFORE_INSTALL ON)
 set(CPACK_NSIS_EXECUTABLES_DIRECTORY ${CMAKE_INSTALL_BINDIR})
-set(
-    CPACK_NSIS_MENU_LINKS ${CMAKE_INSTALL_BINDIR}/${PROJECT_NAME}
-                          ${PROJECT_NAME}
-)
 set(CPACK_NSIS_MUI_FINISHPAGE_RUN ${PROJECT_NAME})
 
 include(CPack)
+
+cpack_add_component(
+    ${PROJECT_NAME}_Always_Required
+    REQUIRED
+    HIDDEN
+)
+
+cpack_add_component(
+    ${PROJECT_NAME}_Runtime
+    DISPLAY_NAME
+    Runtime
+    DESCRIPTION
+    "Shared libraries and executables"
+    REQUIRED
+    INSTALL_TYPES
+    Full
+    Developer
+    Minimal
+)
+
+cpack_add_component(
+    ${PROJECT_NAME}_Development
+    DISPLAY_NAME
+    "Libraries and Headers"
+    DESCRIPTION
+    "Static libraries and headers needed for building apps"
+    DEPENDS
+    ${PROJECT_NAME}_Runtime
+    GROUP
+    ${PROJECT_NAME}_SDK
+    INSTALL_TYPES
+    Full
+    Developer
+)
+
+cpack_add_component_group(
+    ${PROJECT_NAME}_SDK
+    DISPLAY_NAME
+    Development
+    DESCRIPTION
+    "Developer tools, libraries, etc."
+)
+
+cpack_add_install_type(Full)
+cpack_add_install_type(Minimal)
+cpack_add_install_type(
+    Developer
+    DISPLAY_NAME
+    "Development"
+)
