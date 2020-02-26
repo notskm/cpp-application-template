@@ -46,9 +46,5 @@ foreach (ENTRY_FILE ${ENTRY_FILES})
 
     target_compile_features(${EXE_TARGET} PRIVATE cxx_std_17)
 
-    install(
-        TARGETS ${EXE_TARGET}
-        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    )
+    install(TARGETS ${EXE_TARGET} RUNTIME COMPONENT ${PROJECT_NAME}_Runtime)
 endforeach ()

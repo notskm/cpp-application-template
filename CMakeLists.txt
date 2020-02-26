@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.12)
+cmake_minimum_required(VERSION 3.14)
 
 option(
     BUILD_TESTS
@@ -50,14 +50,19 @@ if (BUILD_TESTS)
     add_subdirectory(tests)
 endif ()
 
+# --------------
+# Install
+# --------------
 install(
     DIRECTORY ${PROJECT_BINARY_DIR}/licenses
     DESTINATION ${CMAKE_INSTALL_DATADIR}/${PROJECT_NAME}
+    COMPONENT ${PROJECT_NAME}_Always_Required
 )
 
 install(
-    FILES ${PROJECT_SOURCE_DIR}/LICENSE
-    DESTINATION ${CMAKE_INSTALL_DATADIR}/${PROJECT_NAME}
+    FILES ${CMAKE_CURRENT_LIST_DIR}/LICENSE
+    DESTINATION ${CMAKE_INSTALL_DATADIR}/${PROJECT_NAME}/
+    COMPONENT ${PROJECT_NAME}_Always_Required
 )
 
 set(CPACK_RESOURCE_FILE_LICENSE ${PROJECT_SOURCE_DIR}/LICENSE)

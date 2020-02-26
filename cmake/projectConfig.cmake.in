@@ -1,0 +1,3 @@
+@PACKAGE_INIT@
+
+include(@PROJECT_NAME@Targets.cmake)
