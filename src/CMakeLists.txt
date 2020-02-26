@@ -63,54 +63,56 @@ endif ()
 # --------------
 # Install
 # --------------
-install(
-    TARGETS ${PROJECT_NAME}
-    EXPORT ${PROJECT_NAME}Targets
-    RUNTIME COMPONENT ${PROJECT_NAME}_Runtime
-    LIBRARY COMPONENT ${PROJECT_NAME}_Runtime
-    ARCHIVE COMPONENT ${PROJECT_NAME}_Development
-    INCLUDES
-    COMPONENT ${PROJECT_NAME}_Development
-)
+if (TARGET ${PROJECT_NAME})
+    install(
+        TARGETS ${PROJECT_NAME}
+        EXPORT ${PROJECT_NAME}Targets
+        RUNTIME COMPONENT ${PROJECT_NAME}_Runtime
+        LIBRARY COMPONENT ${PROJECT_NAME}_Runtime
+        ARCHIVE COMPONENT ${PROJECT_NAME}_Development
+        INCLUDES
+        COMPONENT ${PROJECT_NAME}_Development
+    )
 
-install(
-    DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/
-    TYPE INCLUDE
-    COMPONENT ${PROJECT_NAME}_Development
-    FILES_MATCHING
-    REGEX ".*\\.(h|hh|hpp|hxx|h\\+\\+|inl)"
-)
+    install(
+        DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/
+        TYPE INCLUDE
+        COMPONENT ${PROJECT_NAME}_Development
+        FILES_MATCHING
+        REGEX ".*\\.(h|hh|hpp|hxx|h\\+\\+|inl)"
+    )
 
-include(CMakePackageConfigHelpers)
-write_basic_package_version_file(
-    ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake
-    COMPATIBILITY SameMajorVersion
-)
+    include(CMakePackageConfigHelpers)
+    write_basic_package_version_file(
+        ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake
+        COMPATIBILITY SameMajorVersion
+    )
 
-export(
-    EXPORT ${PROJECT_NAME}Targets
-    NAMESPACE ${PROJECT_NAME}::
-    FILE ${PROJECT_NAME}Targets.cmake
-)
+    export(
+        EXPORT ${PROJECT_NAME}Targets
+        NAMESPACE ${PROJECT_NAME}::
+        FILE ${PROJECT_NAME}Targets.cmake
+    )
 
-configure_package_config_file(
-    ${PROJECT_SOURCE_DIR}/cmake/projectConfig.cmake.in
-    ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake
-    INSTALL_DESTINATION
-    ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
-)
+    configure_package_config_file(
+        ${PROJECT_SOURCE_DIR}/cmake/projectConfig.cmake.in
+        ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake
+        INSTALL_DESTINATION
+        ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
+    )
 
-install(
-    EXPORT ${PROJECT_NAME}Targets
-    FILE ${PROJECT_NAME}Targets.cmake
-    NAMESPACE ${PROJECT_NAME}::
-    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
-    COMPONENT ${PROJECT_NAME}_Development
-)
+    install(
+        EXPORT ${PROJECT_NAME}Targets
+        FILE ${PROJECT_NAME}Targets.cmake
+        NAMESPACE ${PROJECT_NAME}::
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
+        COMPONENT ${PROJECT_NAME}_Development
+    )
 
-install(
-    FILES ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake
-          ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake
-    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
-    COMPONENT ${PROJECT_NAME}_Development
-)
+    install(
+        FILES ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake
+              ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
+        COMPONENT ${PROJECT_NAME}_Development
+    )
+endif ()
