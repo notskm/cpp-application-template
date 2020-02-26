@@ -3,7 +3,7 @@
 [![Build Status](https://github.com/notskm/cpp-application-template/workflows/CI/badge.svg)](https://github.com/notskm/cpp-application-template/actions?query=workflow%3ACI)
 [![Clang-Format Status](https://github.com/notskm/cpp-application-template/workflows/clang-format/badge.svg)](https://github.com/notskm/cpp-application-template/actions?query=workflow%3Aclang-format)
 [![CMake-Format Status](https://github.com/notskm/cpp-application-template/workflows/cmake-format/badge.svg)](https://github.com/notskm/cpp-application-template/actions?query=workflow%3Acmake-format)
-[![License](https://img.shields.io/github/license/notskm/cpp-application-template)](LICENSE)
+[![License](https://img.shields.io/github/license/notskm/cpp-application-template)](LICENSE.txt)
 
 ## Building
 
