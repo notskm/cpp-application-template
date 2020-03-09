@@ -22,48 +22,56 @@ jobs:
             c-compiler: cl
             compiler-version: default
             build-type: Debug
+            libcxx: default
 
           - os: "windows-latest"
             cxx-compiler: cl
             c-compiler: cl
             compiler-version: default
             build-type: Release
+            libcxx: default
 
           - os: "ubuntu-latest"
             cxx-compiler: g++
             c-compiler: gcc
             compiler-version: 8
             build-type: Debug
+            libcxx: libstdc++11
 
           - os: "ubuntu-latest"
             cxx-compiler: g++
             c-compiler: gcc
             compiler-version: 8
             build-type: Release
+            libcxx: libstdc++11
 
           - os: "ubuntu-latest"
             cxx-compiler: clang++
             c-compiler: clang
             compiler-version: 8
             build-type: Debug
+            libcxx: libstdc++11
 
           - os: "ubuntu-latest"
             cxx-compiler: clang++
             c-compiler: clang
             compiler-version: 8
             build-type: Release
+            libcxx: libstdc++11
 
           - os: "macos-latest"
             cxx-compiler: clang++
             c-compiler: clang
             compiler-version: default
             build-type: Debug
+            libcxx: libc++
 
           - os: "macos-latest"
             cxx-compiler: clang++
             c-compiler: clang
             compiler-version: default
             build-type: Release
+            libcxx: libc++
 
     runs-on: ${{ matrix.config.os }}
 
@@ -116,10 +124,16 @@ jobs:
           conan profile new default --detect
 
       - name: Build and Install Dependencies
+        shell: pwsh
         run: |
           mkdir build
           cd build
-          conan install .. --build missing -s build_type=${{ matrix.config.build-type }} -pr default -pr ../tools/conan/build_tools -g virtualbuildenv
+          if ('${{ matrix.config.libcxx }}' -ne 'default') {
+            conan install .. --build missing -s build_type=${{ matrix.config.build-type }} -pr default -pr ../tools/conan/build_tools -s compiler.libcxx=${{ matrix.config.libcxx }} -g virtualbuildenv
+          }
+          else {
+            conan install .. --build missing -s build_type=${{ matrix.config.build-type }} -pr default -pr ../tools/conan/build_tools -g virtualbuildenv
+          }
 
       - name: Fix Conan Virtualenv Scripts
         shell: pwsh
