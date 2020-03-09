@@ -78,6 +78,9 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
+      - name: Install C++ Problem Matchers
+        uses: Trass3r/setup-cpp@master
+
       - uses: actions/setup-python@v1
 
       - name: Install Conan
