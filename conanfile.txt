@@ -1,4 +1,6 @@
 [requires]
+
+[build_requires]
 catch2/[~=2]
 
 [generators]
