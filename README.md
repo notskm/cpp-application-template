@@ -10,7 +10,7 @@
 ### Prerequisites
 
 * C++17 compliant compiler
-* [CMake 3.12+](https://cmake.org/download/)
+* [CMake](https://cmake.org/download/)
 * [Conan](https://conan.io/downloads.html)
 
 ### Setting up
