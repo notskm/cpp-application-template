@@ -88,6 +88,9 @@ jobs:
           pip3 install conan
           conan --version
 
+      - name: Setup Conan Remotes
+        run: conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan
+
       - name: Set CXX and CC
         shell: pwsh
         run: |
