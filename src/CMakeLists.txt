@@ -103,8 +103,7 @@ if (TARGET ${PROJECT_NAME})
     configure_package_config_file(
         ${PROJECT_SOURCE_DIR}/cmake/projectConfig.cmake.in
         ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake
-        INSTALL_DESTINATION
-        ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
+        INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
     )
 
     install(

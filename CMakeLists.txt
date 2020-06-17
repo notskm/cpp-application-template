@@ -92,44 +92,29 @@ cpack_add_component(
 
 cpack_add_component(
     ${PROJECT_NAME}_Runtime
-    DISPLAY_NAME
-    Runtime
-    DESCRIPTION
-    "Shared libraries and executables"
-    REQUIRED
+    DISPLAY_NAME Runtime
+    DESCRIPTION "Shared libraries and executables" REQUIRED
     INSTALL_TYPES
-    Full
-    Developer
-    Minimal
+        Full
+        Developer
+        Minimal
 )
 
 cpack_add_component(
     ${PROJECT_NAME}_Development
-    DISPLAY_NAME
-    "Libraries and Headers"
-    DESCRIPTION
-    "Static libraries and headers needed for building apps"
-    DEPENDS
-    ${PROJECT_NAME}_Runtime
-    GROUP
-    ${PROJECT_NAME}_SDK
-    INSTALL_TYPES
-    Full
-    Developer
+    DISPLAY_NAME "Libraries and Headers"
+    DESCRIPTION "Static libraries and headers needed for building apps"
+    DEPENDS ${PROJECT_NAME}_Runtime
+    GROUP ${PROJECT_NAME}_SDK
+    INSTALL_TYPES Full Developer
 )
 
 cpack_add_component_group(
     ${PROJECT_NAME}_SDK
-    DISPLAY_NAME
-    Development
-    DESCRIPTION
-    "Developer tools, libraries, etc."
+    DISPLAY_NAME Development
+    DESCRIPTION "Developer tools, libraries, etc."
 )
 
 cpack_add_install_type(Full)
 cpack_add_install_type(Minimal)
-cpack_add_install_type(
-    Developer
-    DISPLAY_NAME
-    "Development"
-)
+cpack_add_install_type(Developer DISPLAY_NAME "Development")
