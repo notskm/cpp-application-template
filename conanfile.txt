@@ -4,8 +4,10 @@
 catch2/[~=2]
 
 [generators]
-cmake_find_package_multi
+CMakeDeps
+CMakeToolchain
 virtualenv
+virtualbuildenv
 
 [imports]
 ., license* -> ./licenses @ folder=True, ignore_case=True
